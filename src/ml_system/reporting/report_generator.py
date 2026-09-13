@@ -94,3 +94,46 @@ def save_benchmark_report(
     )
 
     return path
+
+
+def save_cross_validation_report(
+    cross_validation: pd.DataFrame,
+    output_path: str | Path,
+) -> Path:
+    """
+    Save cross-validation results as a CSV report.
+    """
+    if not isinstance(cross_validation, pd.DataFrame):
+        raise MLSystemError(
+            "Cross-validation results must be a pandas DataFrame."
+        )
+
+    if cross_validation.empty:
+        raise MLSystemError(
+            "Cross-validation results cannot be empty."
+        )
+
+    path = Path(output_path)
+
+    try:
+        path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        cross_validation.to_csv(
+            path,
+            index=False,
+        )
+
+    except (OSError, ValueError) as exc:
+        raise MLSystemError(
+            f"Failed to save cross-validation report: {path}"
+        ) from exc
+
+    logger.info(
+        "Cross-validation report saved successfully: %s",
+        path,
+    )
+
+    return path
