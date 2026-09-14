@@ -20,6 +20,11 @@ def setup_logging(config_path: str | Path) -> None:
         with path.open("r", encoding="utf-8") as file:
             config = yaml.safe_load(file)
 
+        file_handler = config.get("handlers", {}).get("file")
+        if file_handler and "filename" in file_handler:
+            log_path = Path(file_handler["filename"])
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+
         logging.config.dictConfig(config)
 
     except yaml.YAMLError as exc:
