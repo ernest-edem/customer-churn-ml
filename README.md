@@ -1073,6 +1073,29 @@ reports/metrics/cross_validation.csv
 ```
 
 ---
+## About the Author
+
+**Ernest Edem Dzisah** is a Computer Science and Engineering student focused on Software Engineering and Artificial Intelligence and Machine Learning (AI/ML).
+
+His technical interests include machine learning, data science, Python development, and building practical software systems that combine data, automation, and intelligent decision-making.
+
+This project was developed as part of his Saiket Systems Machine Learning Internship and demonstrates practical experience with:
+
+* Python and scikit-learn
+* Data preprocessing and feature engineering
+* Supervised machine learning
+* Feature selection
+* Model benchmarking and evaluation
+* Cross-validation
+* Configuration-driven software design
+* Automated testing with pytest
+* Continuous integration with GitHub Actions
+
+* **Email:** `ernestedem.d@gmail.com`
+* **GitHub:** [ernest-edem](https://github.com/ernest-edem)
+* **LinkedIn:** [LinkedIn](https://www.linkedin.com/in/ernest-edem-dzisah)
+
+---
 
 ## License
 
