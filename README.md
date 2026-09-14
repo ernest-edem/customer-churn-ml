@@ -1,5 +1,7 @@
 # Customer Churn Analysis and Prediction
 
+[![Tests](https://github.com/ernest-edem/customer-churn-ml/actions/workflows/tests.yml/badge.svg)](https://github.com/ernest-edem/customer-churn-ml/actions/workflows/tests.yml)
+
 A configuration-driven machine learning system for customer churn analysis and prediction, developed as part of the **Saiket Systems Machine Learning Internship**.
 
 The project implements a complete machine learning workflow covering data preparation, data splitting, preprocessing, feature selection, model selection, model training, evaluation, cross-validation, persistence, reporting, and automated testing.
