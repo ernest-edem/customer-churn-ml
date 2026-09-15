@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Customer Churn Analysis and Prediction"
+message: "If you use this project, please cite it as follows."
+type: software
+authors:
+  - family-names: "Dzisah"
+    given-names: "Ernest Edem"
+repository-code: "https://github.com/ernest-edem/customer-churn-ml"
+abstract: "A configuration-driven machine learning system for customer churn analysis, prediction, model evaluation, cross-validation, persistence, reporting, and automated testing."
+keywords:
+  - machine learning
+  - customer churn
+  - Python
+  - scikit-learn
+  - pandas
+  - classification
+  - feature selection
+  - cross-validation
+  - model evaluation
+  - pytest
+
+version: "1.0.0"
