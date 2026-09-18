@@ -1,6 +1,5 @@
 import {
     BarChart3,
-    BrainCircuit,
     CheckCircle2,
     Database,
     GitBranch,
@@ -127,9 +126,12 @@ function ModelPage() {
             <header className="border-b border-border bg-surface">
                 <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-5 lg:px-8 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-                            <BrainCircuit size={22} strokeWidth={2} />
-                        </div>
+                        <img
+                            src="/favicon.svg"
+                            alt="Customer Churn ML logo"
+                            className="h-10 w-10 rounded-xl object-cover"
+                        />
+
                         <div>
                             <h1 className="text-lg font-semibold tracking-tight">
                                 Customer Churn ML
@@ -189,10 +191,17 @@ function ModelPage() {
                     </p>
                 </div>
 
-                <section>
+                <section aria-labelledby="holdout-performance-heading">
                     <div className="mb-4 flex items-center gap-2">
-                        <BarChart3 size={19} className="text-primary" />
-                        <h3 className="text-lg font-semibold text-text">
+                        <BarChart3
+                            size={19}
+                            className="text-primary"
+                            aria-hidden="true"
+                        />
+                        <h3
+                            id="holdout-performance-heading"
+                            className="text-lg font-semibold text-text"
+                        >
                             Holdout Test Performance
                         </h3>
                     </div>
@@ -206,9 +215,15 @@ function ModelPage() {
                     </div>
                 </section>
 
-                <section className="mt-10">
+                <section
+                    className="mt-10"
+                    aria-labelledby="cross-validation-heading"
+                >
                     <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-text">
+                        <h3
+                            id="cross-validation-heading"
+                            className="text-lg font-semibold text-text"
+                        >
                             5-Fold Cross-Validation
                         </h3>
                         <p className="mt-1 text-sm text-text-muted">
@@ -219,6 +234,11 @@ function ModelPage() {
 
                     <div className="overflow-x-auto rounded-xl border border-border bg-surface">
                         <table className="min-w-full text-left text-sm">
+                            <caption className="sr-only">
+                                Five-fold cross-validation performance for the four evaluated
+                                classification models.
+                            </caption>
+
                             <thead className="border-b border-border bg-surface-muted">
                                 <tr>
                                     {[
@@ -231,6 +251,7 @@ function ModelPage() {
                                     ].map((heading) => (
                                         <th
                                             key={heading}
+                                            scope="col"
                                             className="whitespace-nowrap px-4 py-3 font-semibold text-text"
                                         >
                                             {heading}
@@ -238,6 +259,7 @@ function ModelPage() {
                                     ))}
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {crossValidationMetrics.map((row) => (
                                     <tr
@@ -269,9 +291,15 @@ function ModelPage() {
                     </div>
                 </section>
 
-                <section className="mt-10">
+                <section
+                    className="mt-10"
+                    aria-labelledby="holdout-comparison-heading"
+                >
                     <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-text">
+                        <h3
+                            id="holdout-comparison-heading"
+                            className="text-lg font-semibold text-text"
+                        >
                             Holdout Model Comparison
                         </h3>
                         <p className="mt-1 text-sm text-text-muted">
@@ -282,6 +310,11 @@ function ModelPage() {
 
                     <div className="overflow-x-auto rounded-xl border border-border bg-surface">
                         <table className="min-w-full text-left text-sm">
+                            <caption className="sr-only">
+                                Holdout test performance for the four evaluated
+                                classification models.
+                            </caption>
+
                             <thead className="border-b border-border bg-surface-muted">
                                 <tr>
                                     {[
@@ -294,6 +327,7 @@ function ModelPage() {
                                     ].map((heading) => (
                                         <th
                                             key={heading}
+                                            scope="col"
                                             className="whitespace-nowrap px-4 py-3 font-semibold text-text"
                                         >
                                             {heading}
@@ -301,6 +335,7 @@ function ModelPage() {
                                     ))}
                                 </tr>
                             </thead>
+
                             <tbody>
                                 {modelBenchmark.map((row) => (
                                     <tr

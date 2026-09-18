@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowLeft, BrainCircuit, LoaderCircle } from 'lucide-react'
+import { AlertCircle, ArrowLeft, LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -39,9 +39,11 @@ function AssessmentPage() {
             <header className="border-b border-border bg-surface">
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-                            <BrainCircuit size={22} strokeWidth={2} />
-                        </div>
+                        <img
+                            src="/favicon.svg"
+                            alt="Customer Churn ML logo"
+                            className="h-10 w-10 rounded-xl object-cover"
+                        />
 
                         <div>
                             <h1 className="text-lg font-semibold tracking-tight">

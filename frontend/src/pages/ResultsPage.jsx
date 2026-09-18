@@ -55,8 +55,10 @@ function SummarySection({ title, items }) {
                         key={label}
                         className="flex items-baseline justify-between gap-4 border-b border-border pb-2 last:border-b-0 sm:block"
                     >
-                        <dt className="text-sm text-text-muted">{label}</dt>
-                        <dd className="text-sm font-medium text-text">{value}</dd>
+                        <dt className="min-w-0 text-sm text-text-muted">{label}</dt>
+                        <dd className="min-w-0 break-words text-sm font-medium text-text">
+                            {value}
+                        </dd>
                     </div>
                 ))}
             </dl>
@@ -77,9 +79,11 @@ function ResultsPage() {
                 <header className="border-b border-border bg-surface">
                     <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-                                <BrainCircuit size={22} strokeWidth={2} />
-                            </div>
+                            <img
+                                src="/favicon.svg"
+                                alt="Customer Churn ML logo"
+                                className="h-10 w-10 rounded-xl object-cover"
+                            />
 
                             <div>
                                 <h1 className="text-lg font-semibold tracking-tight">
@@ -195,8 +199,8 @@ function ResultsPage() {
         ['Contract', assessment.Contract],
         ['Paperless billing', assessment.PaperlessBilling],
         ['Payment method', assessment.PaymentMethod],
-        ['Monthly charges', `₹${Number(assessment.MonthlyCharges).toFixed(2)}`],
-        ['Total charges', `₹${Number(assessment.TotalCharges).toFixed(2)}`],
+        ['Monthly charges', `₹${Number(assessment.MonthlyCharges).toFixed(2)} `],
+        ['Total charges', `₹${Number(assessment.TotalCharges).toFixed(2)} `],
     ]
 
     return (
@@ -204,9 +208,11 @@ function ResultsPage() {
             <header className="border-b border-border bg-surface">
                 <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 lg:px-8 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-                            <BrainCircuit size={22} strokeWidth={2} />
-                        </div>
+                        <img
+                            src="/favicon.svg"
+                            alt="Customer Churn ML logo"
+                            className="h-10 w-10 rounded-xl object-cover"
+                        />
 
                         <div>
                             <h1 className="text-lg font-semibold tracking-tight">
@@ -316,7 +322,18 @@ function ResultsPage() {
                             </div>
 
                             {probabilityPercentage !== null && (
-                                <div className="mt-3 h-3 overflow-hidden rounded-full bg-surface-muted">
+                                <div
+                                    className="mt-3 h-3 overflow-hidden rounded-full bg-surface-muted"
+                                    role="progressbar"
+                                    aria-label="Churn probability"
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                    aria-valuenow={Math.min(
+                                        Math.max(probabilityPercentage, 0),
+                                        100,
+                                    )}
+                                    aria-valuetext={`${probabilityPercentage.toFixed(1)}%`}
+                                >
                                     <div
                                         className="h-full rounded-full bg-primary transition-all"
                                         style={{
@@ -338,8 +355,10 @@ function ResultsPage() {
 
                         <div
                             className={`mt-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold ${risk.badgeClassName}`}
+                            role="status"
+                            aria-label={`Risk interpretation: ${risk.label}`}
                         >
-                            <RiskIcon size={16} />
+                            <RiskIcon size={16} aria-hidden="true" />
                             {risk.label}
                         </div>
 

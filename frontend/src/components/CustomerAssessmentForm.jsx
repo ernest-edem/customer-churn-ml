@@ -82,9 +82,12 @@ const steps = [
     },
 ]
 
-function FieldLabel({ children }) {
+function FieldLabel({ htmlFor, children }) {
     return (
-        <label className="mb-2 block text-sm font-medium text-text">
+        <label
+            htmlFor={htmlFor}
+            className="mb-2 block text-sm font-medium text-text"
+        >
             {children}
             <span className="ml-1 text-danger">*</span>
         </label>
@@ -92,12 +95,15 @@ function FieldLabel({ children }) {
 }
 
 function SelectField({ label, name, value, options, onChange }) {
+    const inputId = `assessment-${name}`
+
     return (
         <div>
-            <FieldLabel>{label}</FieldLabel>
+            <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
 
             <div className="relative">
                 <select
+                    id={inputId}
                     name={name}
                     value={value}
                     onChange={onChange}
@@ -129,11 +135,16 @@ function NumberField({
     onChange,
     error,
 }) {
+    const inputId = `assessment-${name}`
+    const rangeId = `${inputId}-range`
+    const errorId = `${inputId}-error`
+
     return (
         <div>
-            <FieldLabel>{label}</FieldLabel>
+            <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
 
             <input
+                id={inputId}
                 type="number"
                 name={name}
                 value={value}
@@ -141,16 +152,20 @@ function NumberField({
                 max={max}
                 step={step}
                 onChange={onChange}
+                aria-invalid={error ? 'true' : 'false'}
+                aria-describedby={error ? `${rangeId} ${errorId}` : rangeId}
                 className={`w-full rounded-lg border bg-surface px-3.5 py-2.5 text-sm text-text outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 ${error ? 'border-danger' : 'border-border'
-                    }`}
+                    } `}
             />
 
-            <p className="mt-1.5 text-xs text-text-muted">
+            <p id={rangeId} className="mt-1.5 text-xs text-text-muted">
                 Range: {min} to {max}
             </p>
 
             {error && (
-                <p className="mt-1.5 text-xs font-medium text-danger">{error}</p>
+                <p id={errorId} className="mt-1.5 text-xs font-medium text-danger">
+                    {error}
+                </p>
             )}
         </div>
     )
@@ -235,6 +250,11 @@ function CustomerAssessmentForm({ onSubmit, onCancel }) {
 
         setErrors(nextErrors)
 
+        if (Object.keys(nextErrors).length > 0) {
+            const firstErrorField = Object.keys(nextErrors)[0]
+            document.getElementById(`assessment-${firstErrorField}`)?.focus()
+        }
+
         return Object.keys(nextErrors).length === 0
     }
 
@@ -296,7 +316,14 @@ function CustomerAssessmentForm({ onSubmit, onCancel }) {
                     </p>
                 </div>
 
-                <div className="h-2 overflow-hidden rounded-full bg-surface-muted">
+                <div
+                    className="h-2 overflow-hidden rounded-full bg-surface-muted"
+                    role="progressbar"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={progress}
+                    aria-label={`Assessment progress: step ${currentStep + 1} of ${steps.length}`}
+                >
                     <div
                         className="h-full rounded-full bg-primary transition-all duration-300"
                         style={{ width: `${progress}%` }}
@@ -310,21 +337,24 @@ function CustomerAssessmentForm({ onSubmit, onCancel }) {
 
                         return (
                             <div key={step.id} className="min-w-0">
-                                <div className="flex items-center gap-2">
+                                <div
+                                    className="flex items-center gap-2"
+                                    aria-current={isActive ? 'step' : undefined}
+                                >
                                     <div
                                         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${isComplete
-                                            ? 'bg-primary text-white'
-                                            : isActive
                                                 ? 'bg-primary text-white'
-                                                : 'bg-surface-muted text-text-muted'
-                                            }`}
+                                                : isActive
+                                                    ? 'bg-primary text-white'
+                                                    : 'bg-surface-muted text-text-muted'
+                                            } `}
                                     >
                                         {isComplete ? <Check size={15} /> : index + 1}
                                     </div>
 
                                     <span
                                         className={`hidden truncate text-sm font-medium sm:block ${isActive ? 'text-text' : 'text-text-muted'
-                                            }`}
+                                            } `}
                                     >
                                         {step.title}
                                     </span>
