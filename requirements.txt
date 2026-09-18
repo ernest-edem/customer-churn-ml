@@ -4,3 +4,4 @@ scikit-learn
 PyYAML
 joblib
 pytest
+streamlit
