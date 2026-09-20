@@ -700,6 +700,7 @@ python src/ml_system/data/dataset/prepare_dataset.py
 
 The main training workflow is:
 
+```text
 Load configuration
       |
       v
@@ -731,6 +732,7 @@ Persist model
       |
       v
 Save reports
+```
 
 ### Run the benchmark
 
@@ -844,6 +846,7 @@ Persisted ML Pipeline
 
 ### Frontend
 
+```text
 https://customer-churn-ml-1-j47f.onrender.com
 ```
 
