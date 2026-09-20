@@ -6,412 +6,179 @@
 
 A configuration driven machine learning system for customer churn analysis and prediction, developed as part of the **Saiket Systems Machine Learning Internship**.
 
-The project combines a modular machine learning workflow with a **FastAPI prediction API** and a **React frontend**. The ML workflow covers data preparation, data splitting, preprocessing, feature selection, model selection, model training, evaluation, cross validation, persistence, reporting, and automated testing.
+The project combines a reusable machine learning workflow with a **FastAPI prediction API** and a **React web application**. It covers data preparation, validation, preprocessing, feature selection, model benchmarking, training, evaluation, persistence, reporting, automated testing, and deployment.
 
-## 1. Project Overview
+## Live Application
 
-Customer churn occurs when customers discontinue their relationship with a company or service provider. Predicting potential churn can help organizations identify customers who may leave and support data driven retention strategies.
+**Frontend:**
+https://customer-churn-ml-1-j47f.onrender.com
 
-This project develops a reusable machine learning system that predicts customer churn while keeping the machine learning framework separate from the specific customer churn problem.
+**Backend API:**
+https://customer-churn-ml-api-juuf.onrender.com
 
-The system is **configuration driven**, meaning important settings such as the dataset path, target column, train test split, preprocessing strategies, feature selection method, model, model parameters, and evaluation metrics are controlled through configuration rather than hardcoded throughout the application.
+**API Documentation:**
+https://customer-churn-ml-api-juuf.onrender.com/docs
 
-The project also provides a web application for submitting customer information and viewing the resulting prediction and model performance information.
+The production application has been tested successfully from the deployed frontend through the prediction API.
 
-### Core Principles
+## Project Overview
+
+Customer churn occurs when customers discontinue their relationship with a company or service provider. Predicting potential churn can help organizations identify customers who may require additional attention.
+
+The main design principle of this project is:
 
 > **Separate the ML framework from the ML problem.**
 
+The system is configuration driven. Important settings such as the dataset, target column, preprocessing, feature selection, model, model parameters, evaluation metrics, and persistence path are controlled through configuration.
+
+The project was developed with another guiding principle:
+
 > **As simple as possible, as structured as necessary.**
 
-## 2. Application
+## Application
 
-The current application uses React for the user interface and FastAPI for prediction requests.
+The current application uses:
 
-The main user flow is:
+* React
+* Vite
+* Tailwind CSS
+* FastAPI
+* Pydantic
+* scikit learn
+* Recharts
+* Lucide React
+
+### Application flow
 
 ```text
 Landing Page
-     ↓
+     |
+     v
 Customer Assessment
-     ↓
+     |
+     v
+POST /predict
+     |
+     v
+FastAPI Backend
+     |
+     v
+Persisted ML Pipeline
+     |
+     v
 Prediction Results
-     ↓
+     |
+     v
 Model Performance
 ```
 
-The frontend is located in:
-
-```text
-frontend/
-```
-
-The FastAPI backend is located in:
-
-```text
-backend/
-```
-
-The prediction service loads the persisted machine learning pipeline from:
-
-```text
-models/model.joblib
-```
-
-### Frontend
-
-The React application provides:
+The frontend provides:
 
 * Customer assessment form
 * Step by step form navigation
 * Client side validation
-* Prediction submission
 * Loading and error states
-* Churn prediction result
+* Churn prediction
 * Churn probability visualization
 * Model performance information
 * Responsive layouts
-* Accessibility focused form and navigation elements
+* Accessibility focused form and navigation
 
-### Backend
+## Machine Learning Workflow
 
-The FastAPI application provides:
+The ML workflow is implemented as a modular framework:
 
-* `GET /health` for API health checks
-* `POST /predict` for customer churn predictions
-* Request validation through Pydantic schemas
-* CORS configuration for the local React development server
-* Prediction using the persisted ML pipeline
-
-The API is defined in:
-
-```text
-backend/app/main.py
+`````text
+Configuration
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Data Loading
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Data Validation
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Data Splitting
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Preprocessing
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Feature Selection
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Model Factory
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Model Training
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Model Evaluation
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Model Persistence
+     ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Metrics Reporting
 ```
 
-## 3. Internship Requirements
+The main workflow is implemented in:
 
-The project implements all six major tasks specified for the internship:
-
-1. Data Preparation
-2. Data Splitting
-3. Feature Selection
-4. Model Selection
-5. Model Training
-6. Model Evaluation
-
-Additional supporting capabilities were implemented to make the workflow reproducible and maintainable:
-
-* Configuration management
-* Dataset validation
-* Dataset profiling
-* Automated preprocessing
-* Cross validation
-* Model persistence
-* Metrics reporting
-* Structured logging
-* Automated testing
-* FastAPI prediction service
-* React frontend
-
-## 4. Objectives
-
-The main objectives are to:
-
-* Prepare the customer churn dataset for machine learning.
-* Separate training and testing data correctly.
-* Automatically preprocess numerical and categorical features.
-* Apply configurable feature selection.
-* Compare multiple classification algorithms.
-* Validate model performance using cross validation.
-* Train the selected model.
-* Evaluate model performance using appropriate classification metrics.
-* Persist the trained model for later use.
-* Generate machine readable evaluation reports.
-* Provide a reusable prediction API.
-* Provide a practical web interface for customer assessments.
-* Maintain a modular and reusable ML architecture.
-* Validate the system through automated tests.
-
-## 5. Dataset
-
-The project uses a customer churn dataset containing information about customer demographics, services, contracts, billing, and churn status.
-
-### Original Dataset
-
-* Rows: **7,043**
-* Columns: **21**
-* Target: `Churn`
-* Identifier: `customerID`
-* Numerical and categorical features are included.
-
-The `TotalCharges` column was originally represented as a string and was converted to a numeric data type during dataset preparation.
-
-The `customerID` identifier was removed because it does not provide meaningful predictive information.
-
-After preparation:
-
-* Rows: **7,032**
-* Columns: **20**
-* Missing values: **0**
-* Duplicate rows: **0**
-* Target classes:
-
-  * `No`: 5,163
-  * `Yes`: 1,869
-
-Eleven records with invalid or blank `TotalCharges` values were removed during dataset preparation.
-
-## 6. System Architecture
-
-The machine learning workflow follows a modular architecture:
-
-```text
-                     Configuration
-                          │
-                          ▼
-                  Configuration Loader
-                          │
-                          ▼
-                     Data Loading
-                          │
-                          ▼
-                    Data Validation
-                          │
-                          ▼
-                     Data Splitting
-                          │
-                 ┌────────┴────────┐
-                 ▼                 ▼
-            Training Data     Testing Data
-                 │
-                 ▼
-             Preprocessing
-                 │
-                 ▼
-           Feature Selection
-                 │
-                 ▼
-              Model Factory
-                 │
-                 ▼
-            Model Training
-                 │
-                 ▼
-           Model Evaluation ◄──── Testing Data
-                 │
-          ┌──────┴───────┐
-          ▼              ▼
-      Model Store    Metrics Reports
-```
-
-The application layer extends the ML workflow:
-
-```text
-React Frontend
-      │
-      │ POST /predict
-      ▼
-FastAPI Backend
-      │
-      ▼
-Persisted ML Pipeline
-      │
-      ▼
-Customer Churn Prediction
-```
-
-The main training workflow is orchestrated by:
-
-```text
+`````text
 src/ml_system/pipeline.py
 ```
 
 Model benchmarking and cross validation are implemented in:
 
-```text
+`````text
 src/ml_system/benchmark.py
 ```
 
-The API entry point is:
+## Dataset
 
-```text
-backend/app/main.py
-```
+The project uses a customer churn dataset containing customer demographics, services, contracts, billing information, and churn status.
 
-## 7. Project Structure
+### Original dataset
 
-```text
-customer-churn-ml/
-│
-├── backend/
-│   └── app/
-│       ├── main.py
-│       ├── schemas.py
-│       └── services/
-│           └── prediction.py
-│
-├── config/
-│   ├── config.yaml
-│   └── logging.yaml
-│
-├── data/
-│   └── processed/
-│       └── customer_churn_processed.csv
-│
-├── docs/
-│   └── images/
-│       └── customer-churn-github-preview.png
-│
-├── frontend/
-│   ├── public/
-│   │   └── favicon.svg
-│   └── src/
-│       ├── components/
-│       │   └── CustomerAssessmentForm.jsx
-│       ├── pages/
-│       │   ├── AssessmentPage.jsx
-│       │   ├── LandingPage.jsx
-│       │   ├── ModelPage.jsx
-│       │   └── ResultsPage.jsx
-│       ├── services/
-│       │   └── predictionService.js
-│       ├── App.jsx
-│       ├── index.css
-│       └── main.jsx
-│
-├── models/
-│   └── model.joblib
-│
-├── reports/
-│   ├── figures/
-│   └── metrics/
-│       ├── model_benchmark.csv
-│       ├── cross_validation.csv
-│       └── production_metrics.json
-│
-├── src/
-│   └── ml_system/
-│       ├── config/
-│       │   ├── loader.py
-│       │   └── schemas.py
-│       │
-│       ├── data/
-│       │   ├── loader.py
-│       │   ├── validator.py
-│       │   ├── profiler.py
-│       │   ├── splitter.py
-│       │   └── dataset/
-│       │       ├── Churn_Dataset.csv
-│       │       └── prepare_dataset.py
-│       │
-│       ├── preprocessing/
-│       │   └── pipeline.py
-│       │
-│       ├── features/
-│       │   └── selector.py
-│       │
-│       ├── models/
-│       │   └── factory.py
-│       │
-│       ├── training/
-│       │   └── trainer.py
-│       │
-│       ├── evaluation/
-│       │   └── evaluator.py
-│       │
-│       ├── persistence/
-│       │   └── model_store.py
-│       │
-│       ├── reporting/
-│       │   ├── __init__.py
-│       │   └── report_generator.py
-│       │
-│       ├── benchmark.py
-│       └── pipeline.py
-│
-├── tests/
-│   ├── test_api.py
-│   ├── test_benchmark.py
-│   ├── test_config.py
-│   ├── test_data.py
-│   ├── test_data_profiler.py
-│   ├── test_data_splitter.py
-│   ├── test_data_validation.py
-│   ├── test_edge_cases.py
-│   ├── test_evaluation.py
-│   ├── test_feature_selection.py
-│   ├── test_logging.py
-│   ├── test_model_factory.py
-│   ├── test_persistence.py
-│   ├── test_pipeline.py
-│   ├── test_preprocessing.py
-│   ├── test_reporting.py
-│   └── test_training.py
-│
-├── .github/
-│   └── workflows/
-│       └── tests.yml
-│
-├── .gitignore
-├── CITATION.cff
-├── CONTRIBUTING.md
-├── LICENSE
-├── pyproject.toml
-├── requirements.txt
-└── README.md
-```
+| Property   |        Value |
+| ---------- | -----------: |
+| Rows       |        7,043 |
+| Columns    |           21 |
+| Target     |      `Churn` |
+| Identifier | `customerID` |
 
-The repository no longer contains the obsolete Streamlit application.
+During preparation:
 
-## 8. Data Preparation
+* `customerID` was removed.
+* `TotalCharges` was converted to numeric.
+* 11 records containing invalid or blank `TotalCharges` values were removed.
+
+### Processed dataset
+
+| Property         | Value |
+| ---------------- | ----: |
+| Rows             | 7,032 |
+| Columns          |    20 |
+| Missing values   |     0 |
+| Duplicate rows   |     0 |
+| Non churn (`No`) | 5,163 |
+| Churn (`Yes`)    | 1,869 |
 
 Dataset preparation is implemented in:
 
-```text
+`````text
 src/ml_system/data/dataset/prepare_dataset.py
 ```
 
-The preparation process:
-
-1. Loads the raw CSV dataset.
-2. Removes the `customerID` identifier.
-3. Converts `TotalCharges` to numeric values.
-4. Identifies invalid `TotalCharges` values.
-5. Removes records where `TotalCharges` cannot be converted.
-6. Saves the processed dataset.
-
 The processed dataset is saved to:
 
-```text
+`````text
 data/processed/customer_churn_processed.csv
 ```
 
-The preparation step produces a clean dataset suitable for the ML pipeline.
+## Data Preparation and Validation
 
-## 9. Data Validation and Profiling
+The system validates the dataset before training.
 
-Dataset validation is implemented in:
-
-```text
-src/ml_system/data/validator.py
-```
-
-The validator checks:
+Validation covers:
 
 * Dataset type
 * Empty datasets
-* Presence of required columns
-* Target column existence
+* Required columns
+* Target column
 * Valid target observations
 
-Dataset profiling is implemented in:
-
-```text
-src/ml_system/data/profiler.py
-```
-
-The profiler provides information about:
+Dataset profiling provides:
 
 * Dataset dimensions
 * Column names
@@ -422,15 +189,17 @@ The profiler provides information about:
 * Categorical columns
 * Target distribution
 
-## 10. Data Splitting
+Relevant modules:
 
-Data splitting is implemented in:
-
-```text
-src/ml_system/data/splitter.py
+`````text
+src/ml_system/data/loader.py
+src/ml_system/data/validator.py
+src/ml_system/data/profiler.py
 ```
 
-The default configuration uses:
+## Data Splitting
+
+The project uses an 80/20 stratified train test split.
 
 ```yaml
 split:
@@ -439,41 +208,22 @@ split:
   stratify: true
 ```
 
-Therefore:
-
-* **80%** of the data is used for training.
-* **20%** is used for testing.
-* `random_state=42` provides reproducibility.
-* Stratification preserves the target class distribution between training and testing data.
-
 The test set remains isolated from model fitting and cross validation.
 
-## 11. Preprocessing
+## Preprocessing
 
-Preprocessing is implemented in:
-
-```text
-src/ml_system/preprocessing/pipeline.py
-```
-
-The system dynamically identifies numerical and categorical features.
-
-### Numerical Features
-
-The configured numerical preprocessing uses:
+Numerical features use:
 
 * Median imputation
 * Standard scaling
 
-### Categorical Features
-
-The configured categorical preprocessing uses:
+Categorical features use:
 
 * Most frequent value imputation
 * One hot encoding
 * `handle_unknown="ignore"`
 
-The preprocessing uses scikit learn:
+Preprocessing is implemented with scikit learn:
 
 * `Pipeline`
 * `ColumnTransformer`
@@ -481,17 +231,17 @@ The preprocessing uses scikit learn:
 * `StandardScaler`
 * `OneHotEncoder`
 
-Preprocessing operations are learned from the training data as part of the machine learning pipeline.
+The preprocessing pipeline is fitted using training data and persisted together with the model.
 
-## 12. Feature Selection
+Implementation:
 
-Feature selection is implemented in:
-
-```text
-src/ml_system/features/selector.py
+`````text
+src/ml_system/preprocessing/pipeline.py
 ```
 
-The current configuration uses:
+## Feature Selection
+
+The current configuration uses mutual information to select the top 10 transformed features.
 
 ```yaml
 features:
@@ -501,13 +251,15 @@ features:
     top_k: 10
 ```
 
-The system uses mutual information to select the top 10 transformed features.
+Implementation:
 
-Feature selection can be disabled or modified through configuration without changing the core training workflow.
+`````text
+src/ml_system/features/selector.py
+```
 
-## 13. Model Selection
+## Model Selection
 
-Four classification models were implemented and benchmarked:
+Four classification models were benchmarked:
 
 1. Logistic Regression
 2. Decision Tree
@@ -516,17 +268,11 @@ Four classification models were implemented and benchmarked:
 
 The model factory is implemented in:
 
-```text
+`````text
 src/ml_system/models/factory.py
 ```
 
-Supported models are registered centrally and created from configuration.
-
-## 14. Holdout Model Benchmark
-
-The four models were evaluated using the same stratified train test split and evaluation criteria.
-
-### Holdout Benchmark Results
+### Holdout benchmark
 
 | Model               | Accuracy | Precision | Recall |     F1 |    ROC AUC |
 | ------------------- | -------: | --------: | -----: | -----: | ---------: |
@@ -535,78 +281,59 @@ The four models were evaluated using the same stratified train test split and ev
 | Random Forest       |   77.33% |    76.24% | 77.33% | 76.59% |     79.23% |
 | Decision Tree       |   71.29% |    71.63% | 71.29% | 71.45% |     64.20% |
 
-Logistic Regression achieved slightly higher accuracy, precision, recall, and F1 score than Gradient Boosting on the holdout set.
+ROC AUC was the primary criterion used for selecting the production model. Gradient Boosting recorded the highest ROC AUC on the documented holdout benchmark.
 
-Gradient Boosting achieved the highest ROC AUC at **83.44%**.
+The benchmark results are saved to:
 
-ROC AUC was the primary criterion used for selecting the production model. Based on the documented benchmark, Gradient Boosting was selected.
-
-The benchmark results are persisted to:
-
-```text
+`````text
 reports/metrics/model_benchmark.csv
 ```
 
-## 15. Cross Validation
+## Cross Validation
 
-To provide an additional estimate of model performance, the training portion of the dataset is evaluated using **5 fold stratified cross validation**.
+The training portion of the dataset is evaluated using 5 fold stratified cross validation.
 
-The test set remains isolated and is not included in cross validation.
-
-Cross validation is implemented in:
-
-```text
-src/ml_system/benchmark.py
-```
-
-The evaluation uses:
-
-```text
+`````text
 StratifiedKFold
-
 n_splits = 5
-
 shuffle = true
-
 random_state = 42
 ```
 
-Preprocessing and feature selection remain inside the scikit learn pipeline during each fold, helping prevent information leakage between training and validation folds.
+The test set is not included in cross validation.
 
-### 5 Fold Cross Validation Results
+### Cross validation results
 
-| Model               | Accuracy Mean | Accuracy Std | Precision Mean | Precision Std | Recall Mean | Recall Std |    F1 Mean | F1 Std | ROC AUC Mean | ROC AUC Std |
-| ------------------- | ------------: | -----------: | -------------: | ------------: | ----------: | ---------: | ---------: | -----: | -----------: | ----------: |
-| Gradient Boosting   |    **79.96%** |        0.61% |     **79.00%** |         0.72% |  **79.96%** |      0.61% |     79.16% |  0.70% |   **84.48%** |       0.61% |
-| Logistic Regression |        79.66% |        0.60% |         78.89% |         0.67% |      79.66% |      0.60% | **79.12%** |  0.65% |       84.30% |       0.52% |
-| Random Forest       |        77.81% |        0.61% |         76.73% |         0.60% |      77.81% |      0.61% |     77.05% |  0.58% |       81.28% |       0.50% |
-| Decision Tree       |        73.55% |        1.12% |         73.68% |         0.94% |      73.55% |      1.12% |     73.61% |  1.02% |       66.83% |       1.28% |
+| Model               |       Accuracy |      Precision |         Recall |             F1 |            ROC AUC |
+| ------------------- | -------------: | -------------: | -------------: | -------------: | -----------------: |
+| Gradient Boosting   | 79.96% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61% | 79.00% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.72% | 79.96% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61% | 79.16% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.70% | **84.48% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61%** |
+| Logistic Regression | 79.66% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.60% | 78.89% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.67% | 79.66% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.60% | 79.12% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.65% |     84.30% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.52% |
+| Random Forest       | 77.81% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61% | 76.73% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.60% | 77.81% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61% | 77.05% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.58% |     81.28% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.50% |
+| Decision Tree       | 73.55% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 1.12% | 73.68% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.94% | 73.55% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 1.12% | 73.61% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 1.02% |     66.83% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 1.28% |
 
-Gradient Boosting achieved a mean ROC AUC of:
+Gradient Boosting:
 
-```text
-0.844769 ± 0.006141
+`````text
+ROC AUC: 0.844769 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.006141
 ```
 
-Logistic Regression achieved:
+Logistic Regression:
 
-```text
-0.843022 ± 0.005229
+`````text
+ROC AUC: 0.843022 ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.005229
 ```
 
-The standard deviations provide an indication of variation across the five folds.
+Cross validation results are saved to:
 
-Cross validation is used as an evaluation and model selection aid. It does not replace the isolated holdout test evaluation.
-
-The results are persisted to:
-
-```text
+`````text
 reports/metrics/cross_validation.csv
 ```
 
-## 16. Final Model
+## Production Model
 
-The production configuration uses:
+The persisted production model is a `GradientBoostingClassifier`.
+
+Configuration:
 
 ```yaml
 model:
@@ -618,21 +345,17 @@ model:
     random_state: 42
 ```
 
-The final estimator is:
+The complete preprocessing, feature selection, and model pipeline is persisted as:
 
-```text
-GradientBoostingClassifier
-```
-
-The persisted model is stored at:
-
-```text
+`````text
 models/model.joblib
 ```
 
-## 17. Final Model Performance
+The model artifact is excluded from normal Git version control. CI and Docker deployment download the verified `v1.0.0` release artifact and validate its SHA-256 checksum before use.
 
-The final Gradient Boosting model achieved the following holdout performance:
+## Final Model Performance
+
+### Holdout evaluation
 
 | Metric    |     Result |
 | --------- | ---------: |
@@ -642,9 +365,7 @@ The final Gradient Boosting model achieved the following holdout performance:
 | F1 score  | **78.11%** |
 | ROC AUC   | **83.44%** |
 
-### Cross Validation Performance
-
-The corresponding 5 fold cross validation results were:
+### 5 fold cross validation
 
 | Metric    |       Mean | Standard Deviation |
 | --------- | ---------: | -----------------: |
@@ -654,194 +375,35 @@ The corresponding 5 fold cross validation results were:
 | F1 score  | **79.16%** |              0.70% |
 | ROC AUC   | **84.48%** |              0.61% |
 
-### Confusion Matrix
+### Holdout confusion matrix
 
-The holdout confusion matrix is:
+`````text
+                 Predicted
+                 No      Yes
 
-```text
-                Predicted
-                 No     Yes
-
-Actual No        914    119
-Actual Yes       180    194
+Actual No        914     119
+Actual Yes       180     194
 ```
 
-The model correctly identified:
+The model correctly identified 194 of the 374 churn customers in the holdout set.
 
-* 914 non churn customers
-* 194 churn customers
+This corresponds to approximately 52% recall for the churn class, which is an important limitation of the current model.
 
-It incorrectly classified:
-
-* 119 non churn customers as churn
-* 180 churn customers as non churn
-
-The holdout results show that the model does not identify all actual churn customers. This limitation is discussed further in the limitations section.
-
-## 18. Model Training
-
-Model training is implemented in:
-
-```text
-src/ml_system/training/trainer.py
-```
-
-The training workflow combines:
-
-```text
-Preprocessing
-      ↓
-Feature Selection
-      ↓
-Model
-```
-
-into a single scikit learn `Pipeline`.
-
-This keeps the transformations and trained estimator together and allows the complete pipeline to be persisted.
-
-## 19. Model Evaluation
-
-Evaluation is implemented in:
-
-```text
-src/ml_system/evaluation/evaluator.py
-```
-
-The system supports:
-
-* Accuracy
-* Precision
-* Recall
-* F1 score
-* ROC AUC
-* Confusion matrix
-* Classification report
-
-Metrics are configured through:
-
-```yaml
-evaluation:
-  metrics:
-    - accuracy
-    - precision
-    - recall
-    - f1
-    - roc_auc
-```
-
-## 20. Model Persistence
-
-Model persistence is implemented in:
-
-```text
-src/ml_system/persistence/model_store.py
-```
-
-The trained pipeline can be saved and loaded using `joblib`.
-
-The configured model location is:
-
-```text
-models/model.joblib
-```
-
-Generated model artifacts are excluded from version control through `.gitignore`.
-
-## 21. Reporting
-
-Reporting functionality is implemented in:
-
-```text
-src/ml_system/reporting/report_generator.py
-```
-
-The reporting module supports:
-
-* JSON evaluation reports
-* CSV model benchmark reports
-* CSV cross validation reports
-
-Generated reports include:
-
-```text
-reports/metrics/production_metrics.json
-reports/metrics/model_benchmark.csv
-reports/metrics/cross_validation.csv
-```
-
-The reporting functions are covered by automated tests.
-
-## 22. Configuration
-
-The system is controlled through:
-
-```text
-config/config.yaml
-```
-
-Important configurable components include:
-
-* Dataset path
-* Target column
-* Task type
-* Test size
-* Random state
-* Stratification
-* Missing value strategy
-* Categorical encoding
-* Numerical scaling
-* Feature selection method
-* Number of selected features
-* Model
-* Model parameters
-* Evaluation metrics
-* Model persistence path
-
-For example:
-
-```yaml
-data:
-  path: data/processed/customer_churn_processed.csv
-  target_column: Churn
-task:
-  type: classification
-```
-
-This design minimizes hardcoded problem specific assumptions.
-
-## 23. Logging
-
-Structured application logging is configured through:
-
-```text
-config/logging.yaml
-```
-
-The system uses Python's `logging` framework with:
-
-* Console logging
-* Rotating file logging
-* Configurable log levels
-* Structured log formatting
-
-Application logs are excluded from version control.
-
-## 24. Prediction API
+## Prediction API
 
 The FastAPI application is implemented in:
 
-```text
+`````text
 backend/app/main.py
 ```
 
-### Health Endpoint
+### Health check
 
 ```http
 GET /health
 ```
 
-Example response:
+Response:
 
 ```json
 {
@@ -849,15 +411,15 @@ Example response:
 }
 ```
 
-### Prediction Endpoint
+### Prediction
 
 ```http
 POST /predict
 ```
 
-The endpoint accepts a validated customer assessment and returns a churn prediction and probability.
+The endpoint validates the customer assessment using Pydantic schemas and returns the prediction and model derived churn probability.
 
-Example response:
+Example:
 
 ```json
 {
@@ -867,83 +429,171 @@ Example response:
 ```
 
 The prediction is generated from the persisted machine learning pipeline. The probability is model derived and is not hardcoded.
+### API documentation
 
-### API Documentation
+FastAPI provides interactive Swagger documentation at:
 
-When the backend is running, FastAPI provides interactive documentation at:
-
-```text
+`````text
 http://127.0.0.1:8000/docs
 ```
 
-## 25. React Frontend
+The production API documentation is available at:
 
-The frontend is implemented using:
-
-```text
-React
-Vite
-Tailwind CSS
-React Router
-Recharts
-Lucide React
+`````text
+https://customer-churn-ml-api-juuf.onrender.com/docs
 ```
 
-The application entry point is:
+## React Frontend
 
-```text
-frontend/src/main.jsx
+The frontend is located in:
+
+`````text
+frontend/
 ```
 
-Application routing is handled in:
+Technologies include:
 
-```text
-frontend/src/App.jsx
+* React 19
+* Vite 8
+* Tailwind CSS 4
+* React Router
+* Recharts
+* Lucide React
+* ESLint
+
+Routes:
+
+`````text
+/             Landing page
+/assessment   Customer assessment
+/results      Prediction results
+/model        Model performance
 ```
 
-The current routes are:
+The prediction service is:
 
-```text
-/            Landing page
-/assessment  Customer assessment
-/results     Prediction results
-/model       Model performance
-```
-
-The frontend prediction service is:
-
-```text
+`````text
 frontend/src/services/predictionService.js
 ```
 
-By default, the frontend connects to:
+### API configuration
 
-```text
+Local development uses:
+
+`````text
 http://127.0.0.1:8000
 ```
 
-The API URL can be configured with:
+The production API is configured through:
 
-```text
+`````text
 VITE_API_URL
 ```
 
-## 26. Testing
+Production configuration points to:
 
-The project includes automated tests covering the major system components.
+`````text
+https://customer-churn-ml-api-juuf.onrender.com
+```
 
-The test suite covers:
+## Project Structure
 
-* Configuration loading
+`````text
+customer-churn-ml/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ backend/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ app/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ main.py
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ schemas.py
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ services/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡           ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ prediction.py
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ config/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ config.yaml
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ logging.yaml
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ data/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ processed/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ customer_churn_processed.csv
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ docs/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ images/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ customer-churn-github-preview.png
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ frontend/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ public/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ favicon.svg
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ src/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ components/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ CustomerAssessmentForm.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ pages/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ AssessmentPage.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ LandingPage.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ ModelPage.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ ResultsPage.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ services/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ predictionService.js
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ App.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ index.css
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ main.jsx
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ models/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ model.joblib
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ reports/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ metrics/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ model_benchmark.csv
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ cross_validation.csv
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ production_metrics.json
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ src/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ ml_system/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ config/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ data/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ preprocessing/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ features/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ models/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ training/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ evaluation/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ persistence/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ reporting/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ benchmark.py
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ pipeline.py
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ tests/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ .github/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡   ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ workflows/
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ tests.yml
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ docker.yml
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ Dockerfile
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ .dockerignore
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ .gitignore
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ CITATION.cff
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ CONTRIBUTING.md
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ LICENSE
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ pyproject.toml
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ requirements.txt
+ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ README.md
+```
+
+The obsolete Streamlit application has been removed.
+
+## Testing
+
+The backend and ML system have a comprehensive automated test suite covering:
+
+* Configuration
 * Logging
 * Dataset loading
 * Dataset validation
 * Dataset profiling
-* Dataset splitting
+* Data splitting
 * Preprocessing
 * Feature selection
 * Model factory
-* Model training
+* Training
 * Evaluation
 * Persistence
 * Pipeline integration
@@ -953,39 +603,36 @@ The test suite covers:
 * API endpoints
 * Edge cases
 
-The current verified test suite contains:
+Latest verified result:
 
-```text
-129 tests
-```
-
-Latest full test result:
-
-```text
+`````text
 129 passed, 1 warning
 ```
 
-The warning is an existing Starlette and AnyIO deprecation warning and does not represent a failed test.
+The warning is an existing Starlette and AnyIO deprecation warning and did not cause a test failure.
 
-Run the backend and ML test suite with:
+### Backend tests
 
 ```powershell
 python -m pytest -q
 ```
 
-The frontend has separate lint and production build checks:
+### Frontend lint
 
 ```powershell
 cd frontend
-
 npm run lint
+```
 
+### Frontend production build
+
+```powershell
 npm run build
 ```
 
-The current frontend validation completed successfully with no ESLint errors or warnings, and the Vite production build completed successfully.
+The latest frontend lint completed without errors or warnings, and the production build completed successfully.
 
-## 27. Installation
+## Installation
 
 ### Requirements
 
@@ -994,40 +641,33 @@ The current frontend validation completed successfully with no ESLint errors or 
 * npm
 * Git
 
-### Clone the Repository
+### Clone the repository
 
 ```powershell
 git clone https://github.com/ernest-edem/customer-churn-ml.git
 cd customer-churn-ml
 ```
 
-### Create a Python Virtual Environment
-
-Windows PowerShell:
+### Create the Python environment
 
 ```powershell
 python -m venv .venv
 ```
 
-### Activate the Environment
+Activate it:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-### Install Python Dependencies
+Install Python dependencies:
 
 ```powershell
 python -m pip install -r requirements.txt
-```
-
-### Install the Project
-
-```powershell
 python -m pip install -e .
 ```
 
-### Install Frontend Dependencies
+Install frontend dependencies:
 
 ```powershell
 cd frontend
@@ -1035,79 +675,49 @@ npm install
 cd ..
 ```
 
-## 28. Prepare the Dataset
+## Run Locally
 
-Run:
+### Prepare the dataset
 
 ```powershell
 python src/ml_system/data/dataset/prepare_dataset.py
 ```
 
-This creates:
+### Run the ML pipeline
 
-```text
-data/processed/customer_churn_processed.csv
-```
+The main training workflow is:
 
-## 29. Run the Machine Learning Pipeline
-
-The complete training workflow performs:
-
-```text
+`````text
 Load configuration
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Load dataset
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Validate dataset
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Split dataset
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Build preprocessing pipeline
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Select features
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Build model
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Train model
-        ↓
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
 Evaluate model
-        ↓
-Save model
-        ↓
-Save metrics
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Persist model
+      ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Save reports
 ```
 
-The main pipeline is implemented in:
-
-```text
-src/ml_system/pipeline.py
-```
-
-## 30. Run the Model Benchmark and Cross Validation
-
-From the project root:
+### Run the benchmark
 
 ```powershell
 python -m ml_system.benchmark
 ```
 
-The benchmark evaluates:
-
-```text
-Logistic Regression
-Decision Tree
-Random Forest
-Gradient Boosting
-```
-
-Results are persisted to:
-
-```text
-reports/metrics/model_benchmark.csv
-reports/metrics/cross_validation.csv
-```
-
-## 31. Run the FastAPI Backend
+### Start FastAPI
 
 From the project root:
 
@@ -1115,155 +725,65 @@ From the project root:
 python -m uvicorn backend.app.main:app --reload
 ```
 
-The API will be available at:
+The local API is available at:
 
-```text
+`````text
 http://127.0.0.1:8000
 ```
 
-Health check:
+### Start React
 
-```text
-http://127.0.0.1:8000/health
-```
-
-Interactive API documentation:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-## 32. Run the React Frontend
-
-Open a second PowerShell terminal.
-
-From the project root:
+Open another PowerShell terminal:
 
 ```powershell
 cd frontend
 npm run dev
 ```
 
-Vite normally serves the application at:
+Vite normally serves the frontend at:
 
-```text
+`````text
 http://localhost:5173
 ```
 
-The frontend expects the FastAPI backend to be running on:
+## Docker
 
-```text
-http://127.0.0.1:8000
+The project includes a production Docker configuration.
+
+The Docker image:
+
+* Uses Python 3.11
+* Installs the ML and API dependencies
+* Downloads the versioned production model artifact
+* Verifies the model SHA-256 checksum
+* Installs the project
+* Runs the FastAPI application with Uvicorn
+
+The Dockerfile is:
+
+`````text
+Dockerfile
 ```
 
-### Frontend Validation Commands
-
-Lint:
+Build locally:
 
 ```powershell
-npm run lint
+docker build -t customer-churn-ml:local .
 ```
 
-Production build:
+Run locally:
 
 ```powershell
-npm run build
+docker run --rm -p 8000:8000 customer-churn-ml:local
 ```
 
-Preview the production build:
+## Continuous Integration
 
-```powershell
-npm run preview
-```
+GitHub Actions provides automated validation.
 
-## 33. Run the Complete Application
+### Python tests
 
-The frontend and backend should be started separately during local development.
-
-### Terminal 1: FastAPI
-
-From:
-
-```text
-D:\projects\customer-churn-ml
-```
-
-run:
-
-```powershell
-.venv\Scripts\Activate.ps1
-python -m uvicorn backend.app.main:app --reload
-```
-
-### Terminal 2: React
-
-From:
-
-```text
-D:\projects\customer-churn-ml\frontend
-```
-
-run:
-
-```powershell
-npm run dev
-```
-
-Then open the Vite application in a browser.
-
-The application flow is:
-
-```text
-React Frontend
-      ↓
-Customer Assessment
-      ↓
-POST /predict
-      ↓
-FastAPI
-      ↓
-models/model.joblib
-      ↓
-Prediction Response
-      ↓
-Results Page
-```
-
-## 34. Reproducibility
-
-Reproducibility is supported through configuration controlled random states.
-
-The current project uses:
-
-```text
-random_state = 42
-```
-
-for data splitting, cross validation, and applicable models.
-
-The preprocessing, feature selection, model training, and evaluation steps are assembled into consistent scikit learn pipelines.
-
-Cross validation uses:
-
-```text
-StratifiedKFold
-
-n_splits = 5
-
-shuffle = true
-
-random_state = 42
-```
-
-This provides a reproducible evaluation procedure while preserving the class distribution across folds.
-
-## 35. Continuous Integration
-
-The project uses GitHub Actions for automated Python testing.
-
-The workflow is:
-
-```text
+`````text
 .github/workflows/tests.yml
 ```
 
@@ -1271,126 +791,220 @@ The workflow:
 
 1. Checks out the repository.
 2. Sets up Python 3.11.
-3. Installs the Python dependencies.
-4. Installs the project.
-5. Runs the test suite.
+3. Downloads the versioned model artifact.
+4. Verifies the model artifact.
+5. Installs dependencies.
+6. Installs the project.
+7. Runs the test suite.
 
-The workflow runs on pushes and pull requests targeting the `master` branch.
+### Docker build
 
-Frontend linting and production builds are currently verified locally and are separate from the Python test workflow.
+`````text
+.github/workflows/docker.yml
+```
 
-## 36. Limitations
+The Docker workflow verifies that the production Docker image can be built successfully.
 
-The current system has several limitations.
+Both workflows run from the `master` branch workflow configuration.
 
-### Class Imbalance
+## Deployment
 
-The churn dataset contains substantially more non churn customers than churn customers. Model performance should therefore be interpreted using multiple metrics rather than accuracy alone.
+The application is deployed as two services:
 
-### Churn Recall
+`````text
+React Static Site
+       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+FastAPI API
+       ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ
+Persisted ML Pipeline
+```
 
-The final model achieved approximately **52% recall for the churn class** on the holdout evaluation. A significant proportion of actual churn customers were therefore classified as non churn.
+### Frontend
 
-### Binary Classification
+`````text
+https://customer-churn-ml-1-j47f.onrender.com
+```
 
-The current evaluation workflow is designed for binary classification, particularly for ROC AUC evaluation.
+### Backend
 
-### Dataset Scope
+`````text
+https://customer-churn-ml-api-juuf.onrender.com
+```
 
-The model's performance depends on the characteristics and quality of the available dataset. Results may not generalize to different customer populations without additional validation.
+The production deployment has been verified by:
 
-### No External Validation
+* Successful frontend deployment
+* Successful backend health check
+* Successful production prediction
+* Successful frontend build
+* Successful backend test suite
+* Successful GitHub Actions workflows
 
-The current evaluation uses the available dataset and an isolated holdout test set. External validation on an independent customer population has not been performed.
+## Configuration
 
-### Local Application Configuration
+The main configuration file is:
 
-The current React frontend and FastAPI backend are configured primarily for local development. Production hosting, domain configuration, secrets management, and infrastructure deployment are outside the current scope.
+`````text
+config/config.yaml
+```
 
-## 37. Future Improvements
+Configurable components include:
 
-Potential future improvements include:
+* Dataset path
+* Target column
+* Task type
+* Train test split
+* Random state
+* Stratification
+* Missing value strategy
+* Categorical encoding
+* Numerical scaling
+* Feature selection
+* Number of selected features
+* Model
+* Model parameters
+* Evaluation metrics
+* Model persistence path
+
+This keeps problem specific settings separate from the reusable ML framework.
+
+## Reporting
+
+Evaluation reports are generated in:
+
+`````text
+reports/metrics/
+```
+
+Current reports:
+
+`````text
+production_metrics.json
+model_benchmark.csv
+cross_validation.csv
+```
+
+The reporting system supports machine readable JSON and CSV outputs.
+
+## Logging
+
+Application logging is configured through:
+
+`````text
+config/logging.yaml
+```
+
+The project uses Python's logging framework with:
+
+* Console logging
+* Rotating file logging
+* Configurable log levels
+* Structured log formatting
+
+## Limitations
+
+The current model has several limitations.
+
+### Churn class recall
+
+The holdout evaluation produced approximately 52% recall for the churn class. This means a substantial number of actual churn customers were classified as non churn.
+
+### Class imbalance
+
+The dataset contains substantially more non churn observations than churn observations. Multiple evaluation metrics are therefore considered instead of accuracy alone.
+
+### Dataset scope
+
+Performance depends on the characteristics and quality of the available dataset. Results may not generalize to different customer populations without additional validation.
+
+### External validation
+
+The current evaluation uses the available dataset with an isolated holdout test set. Independent external validation has not been performed.
+
+### Model optimization
+
+The current implementation does not include extensive hyperparameter optimization or production model monitoring.
+
+## Future Improvements
+
+Potential future development includes:
 
 * Hyperparameter optimization
-* Class imbalance handling
-* Threshold optimization
+* Class imbalance strategies
+* Prediction threshold analysis
 * Additional model evaluation
-* ROC and Precision Recall curve generation
+* ROC and Precision Recall curves
 * Explainability using SHAP or similar methods
 * Model monitoring
-* External validation on an independent dataset
-* Production deployment of the React frontend and FastAPI API
+* External validation
 * Frontend and backend CI validation
-* Containerized application deployment
+* Additional production observability
 
-These improvements are outside the current internship implementation and can be considered as future development work.
+## What I Learned
 
-## 38. Conclusion
+This project provided practical experience across the full machine learning development workflow.
 
-This project implements a complete and reusable machine learning workflow for customer churn analysis and prediction.
+Key areas of learning include:
 
-All six internship tasks were completed:
-
-```text
-✓ Data Preparation
-
-✓ Data Splitting
-
-✓ Feature Selection
-
-✓ Model Selection
-
-✓ Model Training
-
-✓ Model Evaluation
-```
-
-Four classification models were benchmarked, with Gradient Boosting selected as the production model based primarily on ROC AUC performance.
-
-The final holdout evaluation achieved:
-
-```text
-Accuracy:  78.75%
-
-F1 score:  78.11%
-
-ROC AUC:   83.44%
-```
-
-The 5 fold stratified cross validation evaluation achieved:
-
-```text
-Accuracy:  79.96% ± 0.61%
-
-F1 score:  79.16% ± 0.70%
-
-ROC AUC:   84.48% ± 0.61%
-```
-
-The project also demonstrates practical software engineering principles through:
-
-* Modular architecture
-* Configuration driven execution
-* Automated testing
-* Structured logging
+* Designing reusable ML systems
+* Configuration driven software design
+* Data preparation and validation
+* Numerical and categorical preprocessing
+* Feature selection
+* Model benchmarking
+* Cross validation
 * Model persistence
-* Reproducible evaluation
-* Machine readable reporting
-* REST API development
-* React frontend development
-* Responsive and accessible interface design
-* Continuous integration
+* Evaluation and reporting
+* Building REST APIs with FastAPI
+* Building interfaces with React
+* Connecting frontend and backend services
+* Automated testing with pytest
+* Continuous integration with GitHub Actions
+* Docker based deployment
+* Production API configuration
+* CORS configuration
+* Debugging deployment issues
+* Maintaining a clean separation between ML logic and application logic
 
-The current repository therefore provides both the underlying machine learning workflow and a practical web interface for interacting with the trained model.
+## Internship Requirements
 
-## 39. Technologies Used
+The six core Machine Learning Internship tasks were implemented:
+
+`````text
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Data Preparation
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Data Splitting
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Feature Selection
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Model Selection
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Model Training
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Model Evaluation
+```
+
+The project extends these requirements with:
+
+`````text
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Configuration management
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Dataset validation
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Dataset profiling
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Automated preprocessing
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Cross validation
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Model persistence
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Metrics reporting
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Structured logging
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Automated testing
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ FastAPI API
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ React frontend
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Docker deployment
+ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ GitHub Actions
+```
+
+## Technologies
 
 ### Machine Learning
 
 * Python 3.11
 * Pandas
 * NumPy
-* Scikit learn
+* scikit learn
 * PyYAML
 * Joblib
 
@@ -1411,70 +1025,57 @@ The current repository therefore provides both the underlying machine learning w
 * Lucide React
 * ESLint
 
-### Testing and Development
+### Testing and Deployment
 
 * Pytest
 * Git
 * GitHub
 * GitHub Actions
+* Docker
+* Render
 
-## 40. Project Status
+## Project Status
 
-**Status: Completed internship implementation with an active full stack application layer.**
+**Status: Completed internship implementation with a deployed full stack application.**
 
-The implementation satisfies the defined Machine Learning Project Contract v1.0 and the six core internship tasks.
+### Verified status
 
-### Test Status
-
-```text
-129 passed
+`````text
+Backend tests:              129 passed
+Frontend lint:              Passed
+Frontend production build:  Passed
+Production API health:      Passed
+Production prediction:      Passed
+Frontend deployment:        Live
+Backend deployment:         Live
+Git working tree:           Clean
 ```
 
-### Production Model
+### Production model
 
-```text
+`````text
 GradientBoostingClassifier
 ```
 
 ### Holdout ROC AUC
 
-```text
+`````text
 83.44%
 ```
 
 ### 5 Fold Cross Validation ROC AUC
 
-```text
-84.48% ± 0.61%
-```
-
-### Application Stack
-
-```text
-React
-    ↓
-FastAPI
-    ↓
-Persisted Gradient Boosting Pipeline
-```
-
-### Generated Evaluation Reports
-
-```text
-reports/metrics/production_metrics.json
-reports/metrics/model_benchmark.csv
-reports/metrics/cross_validation.csv
+`````text
+84.48% ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± 0.61%
 ```
 
 ## About the Author
 
-**Ernest Edem Dzisah** is a Computer Science and Engineering student focused on Software Engineering and Artificial Intelligence and Machine Learning (AI/ML).
+**Ernest Edem Dzisah** is a Computer Science and Engineering student focused on Software Engineering and Artificial Intelligence and Machine Learning.
 
 His technical interests include machine learning, data science, Python development, and building practical software systems that combine data, automation, and intelligent decision making.
 
-## Research Interests
-
-His research interests include:
+### Research Interests
 
 * Machine Learning and Artificial Intelligence
 * Explainable and Interpretable Machine Learning
@@ -1487,29 +1088,17 @@ His research interests include:
 * Data Science and Applied Statistics
 * AI driven Software Engineering
 
-He is interested in research opportunities that connect machine learning with practical problems and can lead to reproducible, useful, and deployable solutions.
+He is interested in research opportunities that connect machine learning with practical problems and lead to reproducible, useful, and deployable solutions.
 
-## Contacts
+## Contact
 
-* **Email:** `ernestedem.d@gmail.com`
-* **GitHub:** [ernest-edem](https://github.com/ernest-edem)
-* **LinkedIn:** [Ernest Edem Dzisah](https://www.linkedin.com/in/ernest-edem-dzisah)
+* **Email:** [ernestedem.d@gmail.com](mailto:ernestedem.d@gmail.com)
+* **GitHub:** https://github.com/ernest-edem
+* **LinkedIn:** https://www.linkedin.com/in/ernest-edem-dzisah
 
 For research collaborations, software engineering opportunities, AI/ML projects, internships, or other professional opportunities, contact Ernest through the channels above.
 
-This project was developed as part of his Saiket Systems Machine Learning Internship and demonstrates practical experience with:
-
-* Python and scikit learn
-* Data preprocessing and feature engineering
-* Supervised machine learning
-* Feature selection
-* Model benchmarking and evaluation
-* Cross validation
-* Configuration driven software design
-* Automated testing with pytest
-* FastAPI API development
-* React frontend development
-* Continuous integration with GitHub Actions
+This project was developed as part of the **Saiket Systems Machine Learning Internship**.
 
 ## License
 
