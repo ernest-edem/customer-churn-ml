@@ -549,15 +549,6 @@ customer-churn-ml/
 |       ├── index.css
 |       └── main.jsx
 |
-├── models/
-|   └── model.joblib
-|
-├── reports/
-|   └── metrics/
-|       ├── model_benchmark.csv
-|       ├── cross_validation.csv
-|       └── production_metrics.json
-|
 ├── src/
 |   └── ml_system/
 |       ├── config/
@@ -962,7 +953,6 @@ Potential future development includes:
 * Explainability using SHAP or similar methods
 * Model monitoring
 * External validation
-* Frontend and backend CI validation
 * Additional production observability
 
 ## What I Learned
