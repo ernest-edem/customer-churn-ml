@@ -1,0 +1,11 @@
+feature,mutual_information
+Contract_Month-to-month,0.09202919325823533
+tenure,0.07414771903747885
+Contract_Two year,0.06071475265871973
+PaymentMethod_Electronic check,0.05835424784832699
+OnlineSecurity_No,0.05788375563192938
+TechSupport_No,0.052659158878734624
+TotalCharges,0.04427634952040638
+MonthlyCharges,0.04347727327483164
+InternetService_Fiber optic,0.03615757640296424
+InternetService_No,0.03608903405786701
