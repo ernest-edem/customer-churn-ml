@@ -80,6 +80,7 @@ class PersistenceSettings:
 @dataclass
 class Settings:
     project: ProjectSettings
+    data: DataSettings
     task: TaskSettings
     split: SplitSettings
     preprocessing: PreprocessingSettings
