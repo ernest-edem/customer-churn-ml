@@ -1,7 +1,9 @@
 name: Export Final ROC Figure
 
 "on":
-  workflow_dispatch:
+  push:
+    branches:
+      - research-revision/reproducible-mutual-information
 
 jobs:
   export:
