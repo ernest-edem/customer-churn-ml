@@ -48,6 +48,9 @@ jobs:
           benchmark = pd.read_csv("reports/metrics/model_benchmark.csv")
           cross_validation = pd.read_csv("reports/metrics/cross_validation.csv")
 
+          # Persist the final configured Gradient Boosting pipeline.
+          training_result = run_training_pipeline(settings)
+
           dataframe = load_dataset(settings.data.path)
           X_train, X_test, y_train, y_test = split_dataset(
               dataframe=dataframe,
