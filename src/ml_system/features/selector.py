@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 
-import numpy as np
 from sklearn.feature_selection import SelectKBest, mutual_info_classif
 
 from ml_system.config.schemas import FeatureSelectionSettings
@@ -80,7 +79,11 @@ def build_feature_selector(
 
     if method == "mutual_information":
         selector = SelectKBest(
-            score_func=mutual_info_classif,
+            score_func=lambda X, y: mutual_info_classif(
+                X,
+                y,
+                random_state=settings.random_state,
+            ),
             k=top_k,
         )
 
