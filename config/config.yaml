@@ -29,6 +29,7 @@ features:
     enabled: true
     method: mutual_information
     top_k: 10
+    random_state: 42
 
 model:
   name: gradient_boosting

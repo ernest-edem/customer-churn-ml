@@ -53,6 +53,7 @@ class FeatureSelectionSettings:
     enabled: bool = True
     method: str = "mutual_information"
     top_k: int = 10
+    random_state: int = 42
 
 
 @dataclass

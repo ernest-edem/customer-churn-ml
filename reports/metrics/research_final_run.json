@@ -1,0 +1,172 @@
+{
+  "software": {
+    "python": "3.11",
+    "scikit_learn": "1.9.1"
+  },
+  "dataset": {
+    "processed_records": 7032,
+    "training_records": 5625,
+    "holdout_records": 1407
+  },
+  "configuration": {
+    "split_random_state": 42,
+    "feature_selection": "mutual_information",
+    "feature_selection_top_k": 10,
+    "feature_selection_random_state": 42,
+    "model": "gradient_boosting",
+    "model_parameters": {
+      "n_estimators": 100,
+      "learning_rate": 0.1,
+      "max_depth": 3,
+      "random_state": 42
+    }
+  },
+  "holdout_benchmark": [
+    {
+      "model": "gradient_boosting",
+      "accuracy": 0.7860696517412935,
+      "precision": 0.7766209952277036,
+      "recall": 0.7860696517412935,
+      "f1": 0.7796396587041573,
+      "roc_auc": 0.8359834033058793
+    },
+    {
+      "model": "logistic_regression",
+      "accuracy": 0.7882018479033405,
+      "precision": 0.7805805743836174,
+      "recall": 0.7882018479033405,
+      "f1": 0.7833447171494871,
+      "roc_auc": 0.8339308177728542
+    },
+    {
+      "model": "random_forest",
+      "accuracy": 0.7739872068230277,
+      "precision": 0.7650235242199286,
+      "recall": 0.7739872068230277,
+      "f1": 0.768318672618848,
+      "roc_auc": 0.7930033493640349
+    },
+    {
+      "model": "decision_tree",
+      "accuracy": 0.7199715707178393,
+      "precision": 0.7228614234873101,
+      "recall": 0.7199715707178393,
+      "f1": 0.721364322168761,
+      "roc_auc": 0.6500936993648115
+    }
+  ],
+  "cross_validation": [
+    {
+      "model": "gradient_boosting",
+      "accuracy_mean": 0.7962666666666667,
+      "accuracy_std": 0.0033917838272602,
+      "precision_mean": 0.7861625926663521,
+      "precision_std": 0.0030614167465269,
+      "recall_mean": 0.7962666666666667,
+      "recall_std": 0.0033917838272602,
+      "f1_mean": 0.7878860865088841,
+      "f1_std": 0.0021924259571452,
+      "roc_auc_mean": 0.8448221270255167,
+      "roc_auc_std": 0.0065452634479914
+    },
+    {
+      "model": "logistic_regression",
+      "accuracy_mean": 0.7985777777777778,
+      "accuracy_std": 0.0067133182536886,
+      "precision_mean": 0.7910187783932218,
+      "precision_std": 0.0075865669000859,
+      "recall_mean": 0.7985777777777778,
+      "recall_std": 0.0067133182536886,
+      "f1_mean": 0.7932977923222977,
+      "f1_std": 0.0074142968653177,
+      "roc_auc_mean": 0.8429405524468162,
+      "roc_auc_std": 0.005225951169761
+    },
+    {
+      "model": "random_forest",
+      "accuracy_mean": 0.7751111111111111,
+      "accuracy_std": 0.0048032910528377,
+      "precision_mean": 0.7650951380132908,
+      "precision_std": 0.0043747814650895,
+      "recall_mean": 0.7751111111111111,
+      "recall_std": 0.0048032910528377,
+      "f1_mean": 0.7683251856293127,
+      "f1_std": 0.0043764757125594,
+      "roc_auc_mean": 0.8098852510790611,
+      "roc_auc_std": 0.0084736232011556
+    },
+    {
+      "model": "decision_tree",
+      "accuracy_mean": 0.7347555555555556,
+      "accuracy_std": 0.0123501187078815,
+      "precision_mean": 0.7365262907783794,
+      "precision_std": 0.0119715271373425,
+      "recall_mean": 0.7347555555555556,
+      "recall_std": 0.0123501187078815,
+      "f1_mean": 0.7355605872726068,
+      "f1_std": 0.0121124132153146,
+      "roc_auc_mean": 0.6682703442467629,
+      "roc_auc_std": 0.0174556309187996
+    }
+  ],
+  "final_model_metrics": {
+    "accuracy": 0.7860696517412935,
+    "precision": 0.7766209952277036,
+    "recall": 0.7860696517412935,
+    "f1": 0.7796396587041573,
+    "roc_auc": 0.8359834033058793,
+    "confusion_matrix": [
+      [
+        913,
+        120
+      ],
+      [
+        181,
+        193
+      ]
+    ],
+    "classification_report": "              precision    recall  f1-score   support\n\n          No       0.83      0.88      0.86      1033\n         Yes       0.62      0.52      0.56       374\n\n    accuracy                           0.79      1407\n   macro avg       0.73      0.70      0.71      1407\nweighted avg       0.78      0.79      0.78      1407\n"
+  },
+  "selected_features": [
+    {
+      "feature": "Contract_Month-to-month",
+      "mutual_information": 0.09202919325823533
+    },
+    {
+      "feature": "tenure",
+      "mutual_information": 0.07414771903747885
+    },
+    {
+      "feature": "Contract_Two year",
+      "mutual_information": 0.06071475265871973
+    },
+    {
+      "feature": "PaymentMethod_Electronic check",
+      "mutual_information": 0.05835424784832699
+    },
+    {
+      "feature": "OnlineSecurity_No",
+      "mutual_information": 0.05788375563192938
+    },
+    {
+      "feature": "TechSupport_No",
+      "mutual_information": 0.052659158878734624
+    },
+    {
+      "feature": "TotalCharges",
+      "mutual_information": 0.04427634952040638
+    },
+    {
+      "feature": "MonthlyCharges",
+      "mutual_information": 0.04347727327483164
+    },
+    {
+      "feature": "InternetService_Fiber optic",
+      "mutual_information": 0.03615757640296424
+    },
+    {
+      "feature": "InternetService_No",
+      "mutual_information": 0.03608903405786701
+    }
+  ]
+}
