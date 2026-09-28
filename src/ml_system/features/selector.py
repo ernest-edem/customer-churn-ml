@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from functools import partial
 
 from sklearn.feature_selection import SelectKBest, mutual_info_classif
 
@@ -14,6 +15,14 @@ logger = logging.getLogger("ml_system")
 SUPPORTED_METHODS = {
     "mutual_information",
 }
+
+
+def _mutual_information_score(X, y, random_state: int):
+    return mutual_info_classif(
+        X,
+        y,
+        random_state=random_state,
+    )
 
 
 def build_feature_selector(
@@ -78,12 +87,12 @@ def build_feature_selector(
     top_k = min(settings.top_k, feature_count)
 
     if method == "mutual_information":
+        score_func = partial(
+            _mutual_information_score,
+            random_state=settings.random_state,
+        )
         selector = SelectKBest(
-            score_func=lambda X, y: mutual_info_classif(
-                X,
-                y,
-                random_state=settings.random_state,
-            ),
+            score_func=score_func,
             k=top_k,
         )
 
@@ -93,9 +102,10 @@ def build_feature_selector(
         )
 
     logger.info(
-        "Feature selector created: method=%s, top_k=%d",
+        "Feature selector created: method=%s, top_k=%d, random_state=%d",
         method,
         top_k,
+        settings.random_state,
     )
 
     return selector
